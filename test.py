@@ -132,8 +132,11 @@ Racine : 9, car c est le premier noeud a etre traite lors du parcours Preodonne
 """
 Produit des valeurs des noeuds d'un arbre binaire
 """
-# Traitement multiplication 
 def multiplication(val, P):
+    """
+    Traitement multiplication
+    Qui consiste a empiler le produit des noeuds
+    """
     if not P.EstVide():
         p = P.Retirer()
         P.Ajouter(p*val)
@@ -141,8 +144,10 @@ def multiplication(val, P):
         P.Ajouter(val)
 
         
-# Traitement compte branche droit
 def CompteDroitPre(A):
+    """
+    Traitement compte branche droit de l arbre
+    """
     if not A.EstVide() and not A.FD.EstVide():
         print(A.GetRacine())
         return 1 + CompteDroitPre(A.FG) + CompteDroitPre(A.FD)
@@ -184,24 +189,31 @@ A1.GetSAG().GetSAG().AjouterFD(7)
 
 
 
-# Retourne 1 si c est un noeud
 def CompteNoeud(A):
+    """
+     Retourne 1 si c est une feuille
+    """
     if A.FD.EstVide() and A.FG.EstVide():
         print(A.GetRacine())
         return 1
     else:
         return 0
 
-# Retourne la valeur du noeud 
 def ValeurNoeud(A):
+    """
+    Retourne la valeur d une feuille 
+    """
+
     if A.FD.EstVide() and A.FG.EstVide():
         return A.GetRacine()
     else:
         return 0
 
     
-# Compte les feuille 
 def CompteFeuillePre(A):
+    """
+    Compte les feuilles d'un arbre binaire
+    """
     if not A.EstVide() :
         n = CompteNoeud(A)
         n1 = CompteFeuillePre(A.FG)
@@ -211,8 +223,10 @@ def CompteFeuillePre(A):
         return 0
 
 
-# Somme des feuille 
 def SommeFeuillePre(A):
+    """
+    Somme (additionne) les valeurs des feuilles de l arbre binaire
+    """
     if not A.EstVide() :
         n = ValeurNoeud(A)
         n1 = SommeFeuillePre(A.FG)
@@ -230,3 +244,53 @@ print(CompteFeuillePre(A1))
 print("###########Somme Feuille ##############")
 
 print(SommeFeuillePre(A1))
+
+
+
+# Exo 7
+# Compte noeuds internes 
+def CompteNoeudInterne(A):
+    """
+     Retourne 1 si c est un noeud interne 
+    """
+    if not A.FD.EstVide() or not  A.FG.EstVide():
+        print(A.GetRacine())
+        return 1
+    else:
+        return 0
+
+    
+def CompteNoeudInternePre(A):
+    """
+    Compte noeud interne d'un arbre binaire
+    """
+    if not A.EstVide() :
+        n = CompteNoeudInterne(A)
+        n1 = CompteNoeudInternePre(A.FG)
+        n2  = CompteNoeudInternePre(A.FD)
+        return n + n1 + n2
+    else:
+        return 0
+
+    
+print("###########Compte noeud interne##############")
+
+print(CompteNoeudInternePre(A1))
+
+
+    
+# Exo 8
+"""
+1- q8(ab, 3, 1) = q8(g, 3,2) + q8(d, 3,2)
+                = q8(gg, 3,3) + q8(gd, 3,3) + q8(dg, 3,3) +      q8(dd, 3,3)
+                = 1 + 1 + 0 + 1
+                = 3
+
+
+2- q8(ab, 4, 1) = q8(g, 4,2) + q8(d, 4,2)
+                = q8(gg, 4,3) + q8(gd, 4,3) + q8(dg, 4,3) +      q8(dd, 4,3)
+                = q8(ggg, 4,4) + q8(ggd, 4,4) + q8(dgg, 4,4) +  q8(dgd, 4,4)  + q8(ddg, 4,4) +  q8(ddd, 4,4)
+                = 1 + 0 + 1 + 1 + 1 + 1 
+
+3- la fonction q8() compte le nombre de noeud au niveau <<n>> de l arbre 
+"""
