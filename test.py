@@ -12,8 +12,6 @@ def verificationArbre(AB):
         print("A1  vide")
     else:
         print("A1 pas vide")
-
-
 # Ajout du noeud racine:12
 A1.SetRacine(12)
 verificationArbre(A1)
@@ -66,13 +64,28 @@ def ParcoursSym(A) :
         
 """
 Resultat 
+                                 P
+                              /      \
+                             E        R
+                          /    \    /   \
+                         S      A   H   E
+                               /     \ 
+                              M       O
+Preodonne : 
+P-E-S-A-M-R-H-O-E
+
+Symetrique:
+S-E-M-A-P-H-O-R-E
+
 """
+# Construction de l arbre
+
 A = AB('P')
 # Ajout fils gauche de A : E
 A.AjouterFG('E')
 
 # Ajout fils gauche de E : S 
-# A.GetSAG().AjouterFG('S')
+A.GetSAG().AjouterFG('S')
 
 # Ajout fils droit de E : A
 A.GetSAG().AjouterFD('A')
@@ -84,7 +97,7 @@ A.GetSAG().GetSAD().AjouterFG('M')
 A.AjouterFD('R')
 
 # Ajout fils gauche de R : H
-A.GetSAD().AjouterFG('H')
+# A.GetSAD().AjouterFG('H')
 
 # Ajout fils droit de R : E
 A.GetSAD().AjouterFD('E')
@@ -107,24 +120,110 @@ ParcoursSym(A)
 
 # Exo 2
 """
-Racine : 9, car c est le premier noeud a etre traite lors du parcours Preodonne
+ParcoursPre A0: 
 
+9 – 5 – 3 – 1 – 4 – 8 – 7 – 15 – 12 – 14 – 25 – 29 –  27
+
+1- Parcours symetrique (FG-PERE-FD) :
+1-3-4-5-7-8-9-12-14-15-25-27-29
+
+1-3-4-5-7-8-9-12-14-15-25-27-29
+
+
+2- Racine : 9, car c est le premier noeud a etre traite lors du parcours Preodonne
+
+3- 
+                                 9
+                              /    \
+                           5         15
+                         /   \      /   \
+                       3      8   12     25
+                      / \    /     \       \
+                    1    4  7       14      29
+                                           /
+                                           27
 
 """
 
 # Exo 3
 """
-1-
-2- 
-3- 8 comparaisons
-4- 3 comparaisons
+Liste: 25, 15, 33, 20, 18, 7, 41, 28, 30
+
+                              25
+                           /     \ 
+                          15      33
+                         /  \    /   \
+                        7   20  28    41
+                           /     \
+                          18      30
+                    
+
+
+1-                               25
+                               /    \
+                              15     33
+                             /  \   /  \
+                            7   20 28   41
+                               /        /
+                              18       30
+  
+2-
+Nouvelle liste : 25, 33, 30, 18, 7, 15,
+20, 41, 28
+
+
+
+                                  25
+                               /     \
+                              18      33
+                            /    \   /  \ 
+                           7     20 30   41
+                            \       /
+                            15     28 
+ 
+3-     25, 15, 33, 20, 18, 7, 41, 28, 30 
+
+       8 comparaisons
+
+
+
+4-   
+      7, 15, 18, 20, 25, 28, 30, 33, 41
+ 
+      Recherche: 28
+      7, 15, 18, 20  -25-     28, 30, 33, 41
+      28 ? 25
+
+      28, 30, 33, 41
+      
+      Recherche: 28
+      28 -30- 33, 41
+      28 ? 30
+
+      
+      28
+     
+      Recherche: 28
+      28
+      28 == 28
+
+      3 comparaisons
+
 5- 3 comparaisons 
 """
 
 # Exo 4
 """
-1- (14.5, 1), (14.1, 1), (16.8, 1), (15.3, 1), (18.6, 1), (17.5, 1) === res1 = 6
-2- res2 = 
+
+1- Exam(T, 14) 
+             (14.5, 1), (14.1, 1), (16.8, 1), (15.3, 1), (18.6, 1), (17.5, 1) === res1 = (1+1+1+1+1+1)= 6
+
+
+2- Exam(T, 10)
+   
+res2 = 
+
+
 3- L'algo compte le nombre de noeuds plus grands ou egaux a val 
 """
 
@@ -136,6 +235,16 @@ def multiplication(val, P):
     """
     Traitement multiplication
     Qui consiste a empiler le produit des noeuds
+
+    2*5*3*9
+    2
+
+    2*5=10
+
+    10*3= 30
+    
+    30*9= 180
+
     """
     if not P.EstVide():
         p = P.Retirer()
@@ -154,6 +263,7 @@ def CompteDroitPre(A):
     else:
         return 0
 
+
     
 # Preodonne (PERE-FG-FD)
 def MultPre(A, P) :
@@ -163,12 +273,23 @@ def MultPre(A, P) :
         MultPre(A.GetSAD(), P)
     
         
+"""
+A1
+                        12
+                       /  \
+                      6    15
+                         
+
+"""        
         
 P = Pile()
 
-MultPre(AB(), P)
+print("########### Produit des valeur de noeuds ##############")
 
-if not P.EstVide() : print(P.Premier())
+MultPre(A1, P)
+
+
+if not P.EstVide() : print("produit des noeuds :", P.Premier())
 
 print("###########Compte Droit ##############")
 
@@ -178,7 +299,18 @@ print(CompteDroitPre(A))
 
 # Exo 6
 # Fonction compte feuille
-# A1 
+# A1
+
+"""
+    A1 
+                       12
+                      /  \ 
+                     8    15
+                    /     /
+                   4     13
+                    \ 
+                     7 
+"""
 A1 = AB(12)
 
 A1.AjouterFD(15)
@@ -187,6 +319,7 @@ A1.AjouterFG(8)
 A1.GetSAG().AjouterFG(4)
 A1.GetSAG().GetSAG().AjouterFD(7)
 
+A1.GetSAD().AjouterFG(13)
 
 
 def CompteNoeud(A):
@@ -199,7 +332,7 @@ def CompteNoeud(A):
     else:
         return 0
 
-def ValeurNoeud(A):
+def ValeurFeuille(A):
     """
     Retourne la valeur d une feuille 
     """
@@ -228,7 +361,7 @@ def SommeFeuillePre(A):
     Somme (additionne) les valeurs des feuilles de l arbre binaire
     """
     if not A.EstVide() :
-        n = ValeurNoeud(A)
+        n = ValeurFeuille(A)
         n1 = SommeFeuillePre(A.FG)
         n2  = SommeFeuillePre(A.FD)
         return n + n1 + n2
@@ -254,7 +387,7 @@ def CompteNoeudInterne(A):
      Retourne 1 si c est un noeud interne 
     """
     if not A.FD.EstVide() or not  A.FG.EstVide():
-        print(A.GetRacine())
+        print("**",A.GetRacine(),"**")
         return 1
     else:
         return 0
@@ -281,6 +414,8 @@ print(CompteNoeudInternePre(A1))
     
 # Exo 8
 """
+d == droit
+g == gauche 
 1- q8(ab, 3, 1) = q8(g, 3,2) + q8(d, 3,2)
                 = q8(gg, 3,3) + q8(gd, 3,3) + q8(dg, 3,3) +      q8(dd, 3,3)
                 = 1 + 1 + 0 + 1
