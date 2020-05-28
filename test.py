@@ -429,3 +429,24 @@ g == gauche
 
 3- la fonction q8() compte le nombre de noeud au niveau <<n>> de l arbre 
 """
+
+
+# Exo 9
+
+"""
+                                     -
+                                  /    \
+                                 /      \
+                                /        \
+                               /          \
+                              /            \ 
+                             /              \
+                             +               *
+                          /      \         /    \
+                         /        \       /      \
+                        *          \      3      9.81
+                     /  \           \
+                ./.      -            +
+              /    \   /   \       /    \
+            4.34   21  37  6.87  4.36  8.84
+"""
